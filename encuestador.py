@@ -61,40 +61,53 @@ class Application(tk.Frame):
    appState = {  }
    respuestas = []
 
-   def __init__(self, master=None):
-      super().__init__(master)
+   def __init__(self, master=None, **options):
+      super().__init__(master, options)
       self.master = master
       self.pack()
-      self.create_widgets()    
+      # self.create_widgets()    
+      self.pantalla_encuesta(cuestiones, 1)
       self.appState["question"] = 0
+
+   # Pantalla de la encuesta
 
    def pantalla_encuesta(self, encuesta, num):
 
       cc = cuestiones[num]
-
       #self.titulo = tk.Label(self, master=None, cnf={"height": 2})
       #self.titulo[text] = cc['titulo']
 
-      self.cuestion= tk.Button(self)
-      self.cuestion['text'] = cc['titulo']
-      if (cc['tipo']=='opciones') :
-         for op in cc['opciones']:
-               self.radio_button = "asd" 
+      titulo_pregunta = cc['titulo']
+      cuestion = cc['preguntas'][num]['titulo']
 
-
-   def create_widgets(self):
+      print(cc)
+      print(titulo_pregunta)
+      print(cuestion)
 
       v = -1
 
       self.titulo = tk.Label(self, height=4, font=("Helvetica", 12) )
-      self.titulo["text"] = cuestiones[1]['titulo']
+      self.titulo["text"] = titulo_pregunta
       self.titulo.grid(column=1, row=1, columnspan=20)
+
+      self.cuestion = tk.Label(self, height=4, font=("Helvetica", 12) )
+      self.cuestion["text"] = cuestion
+      self.cuestion.grid(column=1,row=2, columnspan=20)
+
+      for i in range(0,11):
+         self.pct0 = tk.Radiobutton(self, text="{}%".format(10*i), variable=v, value=i, indicatoron=0, width=8)
+         self.pct0.grid(column=1+i, row=3, sticky="EW")
+         # self.pct0.pack(side="left")
+
+      self.nsnc = tk.Radiobutton(self,text="No sabe\nNo desea contestar", variable=v, value=-1, indicatoron=0)
+      self.nsnc.grid(column=13, row=3, sticky="EW")
+      self.nsnc.select()
 
       # Opciones preguntas y columnspan de cada pregunta
       descripciones_preguntas = [
          ('nadie', 1),
          ('casi nadie', 2),
-         ('algunas personas\npero pocas', 2),git
+         ('algunas personas\npero pocas', 2),
          ('la mitad', 1),
          ('la mayoria pero\nno todos', 2),
          ('casi todos',2),
@@ -104,22 +117,16 @@ class Application(tk.Frame):
         
       column = 1
       for (descr,colspan) in descripciones_preguntas:
-         tk.Label(self, text=descr).grid(row = 4,column=column, columnspan = colspan, sticky="EW")
+         tk.Label(self, text=descr).grid(row=4,column=column, columnspan = colspan, sticky="EW")
          column += colspan 
 
-      for i in range(0,11):
-         self.pct0 = tk.Radiobutton(self, text="{}%".format(10*i), variable=v, value=i, indicatoron=0, width=8)
-         self.pct0.grid(column=1+i, row=2, sticky="EW")
-         # self.pct0.pack(side="left")
-
-      tk.Radiobutton(self,text="No sabe\nNo desea contestar", variable=v, value=-1, indicatoron=0).grid(column=14, row=2, sticky="EW")
-
-      self.quit = tk.Button(self, text="QUIT", fg="red", command=self.master.destroy).grid(row=7, column=4,columnspan=7, sticky="EW")
-      self.news = tk.Button(self, text="Siguiente >>").grid(row=6, column=5, sticky="EW") 
-
+      self.quit = tk.Button(self, text="EXIT", fg="red", command=self.master.destroy)\
+                    .grid(row=6, column=2,columnspan=2, sticky="EW")
+      self.news = tk.Button(self, text="Siguiente >>")  \
+                    .grid(row=6, column=10, columnspan=2, sticky="EW", pady=10) 
 
 if __name__ == "__main__":
-   root = tk.Tk()
-   app = Application(master=root)
+   root = tk.Tk( )
+   app = Application(master=root, bd=25, relief="flat")
    app.mainloop()
    pass
