@@ -2,6 +2,9 @@
 # 
 # This is UNRELEASED PROPIETARY SOFTWARE Copyright (C) 2019, Iñigo González Ponce
 
+from encuesta import Encuesta
+import tkinter as tk
+
 cuestiones = [
      {
        "titulo": "Cual de estos factores crees que te definen mejor (señale sólo una)",
@@ -53,31 +56,6 @@ cuestiones = [
 
 
 ]
-
-import tkinter as tk
-
-""" 
-El encuestador lee el fichero de enuesta, y mantiene el estado de las respuestas.
-"""
-class Encuestador:
-
-   appState = {}
-   preguntas = []
-   respuestas = []
-
-   def __init__ (self, pollDefinitionFile):
-      readPollDefinition( pollDefinitionFile )
-
-   def readPollDefinition():
-      ##populate preguntas
-      None
-
- 
-
-   
-
-
-
 
 class Application(tk.Frame):
 
