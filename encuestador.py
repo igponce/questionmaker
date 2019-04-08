@@ -56,6 +56,29 @@ cuestiones = [
 
 import tkinter as tk
 
+""" 
+El encuestador lee el fichero de enuesta, y mantiene el estado de las respuestas.
+"""
+class Encuestador:
+
+   appState = {}
+   preguntas = []
+   respuestas = []
+
+   def __init__ (self, pollDefinitionFile):
+      readPollDefinition( pollDefinitionFile )
+
+   def readPollDefinition():
+      ##populate preguntas
+      None
+
+ 
+
+   
+
+
+
+
 class Application(tk.Frame):
 
    appState = {  }
@@ -127,6 +150,11 @@ class Application(tk.Frame):
 
 if __name__ == "__main__":
    root = tk.Tk( )
+   scrW = root.winfo_screenwidth()
+   scrH = root.winfo_screenheight()
+   root.title ("Encuestador") # Hardcoded ?
+   root.geometry("{}x{}".format(scrW, scrH))
+
    app = Application(master=root, bd=25, relief="flat")
    app.mainloop()
    pass
